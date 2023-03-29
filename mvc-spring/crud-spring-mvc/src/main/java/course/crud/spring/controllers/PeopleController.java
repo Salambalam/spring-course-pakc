@@ -39,4 +39,27 @@ public class PeopleController {
         personDAO.save(person);
         return "redirect:/people";
     }
+
+    @GetMapping("/{id}/edit")
+    public String edit(Model model, @PathVariable("id") int id){
+        //PathVariable используется для передачи нужного значения из запроса
+        model.addAttribute("person", personDAO.show(id));
+        return "people/edit";
+    }
+
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("person") Person person,
+                         @PathVariable("id") int id){
+        //PatchMapping
+        //ModelAttribute принимет объект персон из формы
+        //PathVariable принимает значение из адреса
+        personDAO.update(id, person);
+        return "redirect:/people";
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") int id){
+        personDAO.delete(id);
+        return "redirect:/people";
+    }
 }
