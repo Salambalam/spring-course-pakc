@@ -12,6 +12,10 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
+
+
+
+
 @Configuration
 @ComponentScan("course.crud.spring")
 @EnableWebMvc
@@ -44,4 +48,12 @@ public class SpringConfig implements WebMvcConfigurer {
         resolver.setTemplateEngine(templateEngine());
         registry.viewResolver(resolver);
     }
+//    @Bean
+//    public javax.validation.Validator validator() {
+//        ValidatorFactory validatorFactory = Validation.byDefaultProvider()
+//                .configure()
+//                .addProperty("hibernate.validator.fail_fast", "true")
+//                .buildValidatorFactory();
+//        return validatorFactory.getValidator();
+//    }
 }
