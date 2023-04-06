@@ -12,7 +12,7 @@
 *.log
 
 *work/
-*.target
+**/target/
 
 # Tomcat context configuration files
 *conf/Catalina/
