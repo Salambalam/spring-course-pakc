@@ -13,6 +13,6 @@
 
 *work/
 **/target/
-
 # Tomcat context configuration files
 *conf/Catalina/
+**database.properties
