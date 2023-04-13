@@ -47,29 +47,13 @@ public class PersonDAO {
         jdbcTemplate.update("DELETE  FROM person WHERE id=?", id);
     }
 
-    ////////////////////////
-    ///// Тестируем производительность пакетной вставки
-    ///////////////////////
-    public void testMultipleUpdate() {
+
+
+    public void batchUpdate(){
         List<Person> people = create1000People();
 
         long before = System.currentTimeMillis();
-
-        for(Person person: people){
-            jdbcTemplate.update("INSERT  INTO  person VALUES(1, ?, ?, ?)",
-                    person.getName(), person.getAge(), person.getEmail());
-        }
-
-        long after = System.currentTimeMillis();
-
-        System.out.println("Time: " + (after - before));
-    }
-
-    public void testBatchUpdate(){
-        List<Person> people = create1000People();
-
-        long before = System.currentTimeMillis();
-        jdbcTemplate.batchUpdate("INSERT  INTO person VALUES(?, ?, ?, ?)",
+        jdbcTemplate.batchUpdate("INSERT INTO person VALUES(?, ?, ?, ?)",
                 new BatchPreparedStatementSetter() {
                     @Override
                     public void setValues(PreparedStatement preparedStatement, int i) throws SQLException {
@@ -89,6 +73,9 @@ public class PersonDAO {
         System.out.println("Time: " + (after - before));
     }
 
+
+
+    // Этот метод нужен для теста batchUpdate
     private List<Person> create1000People(){
         List<Person> people = new ArrayList<>();
 
