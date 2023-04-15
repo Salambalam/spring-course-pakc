@@ -73,6 +73,10 @@ public class PersonDAO {
         System.out.println("Time: " + (after - before));
     }
 
+    public void getBdTest(){
+
+    }
+
 
 
     // Этот метод нужен для теста batchUpdate
