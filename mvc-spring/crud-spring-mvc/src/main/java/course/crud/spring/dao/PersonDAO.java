@@ -27,7 +27,6 @@ public class PersonDAO {
 
     @Transactional(readOnly = true)
     public Person show(int id){
-        //query() - используем для запроса, чтобы получить данные
         Session session = sessionFactory.getCurrentSession();
 
         return session.get(Person.class, id);
@@ -35,7 +34,6 @@ public class PersonDAO {
 
     @Transactional
     public void save(Person person){
-        // update - используется для обновления данных
         Session session = sessionFactory.getCurrentSession();
         session.save(person);
     }
