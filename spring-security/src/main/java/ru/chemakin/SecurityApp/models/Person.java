@@ -77,12 +77,14 @@ public class Person {
         return Objects.hash(id, username, yearOfBirth, password);
     }
 
+
     @Override
     public String toString() {
         return "Person{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", yearOfBirth=" + yearOfBirth +
+                ", password='" + password + '\'' +
                 '}';
     }
 }
