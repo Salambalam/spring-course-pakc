@@ -16,7 +16,7 @@ public class PersonService {
         this.peopleRepository = peopleRepository;
     }
 
-    public Optional<Person> findOne(Person person){
-        return peopleRepository.findById(person.getId());
+    public Optional<Person> findByUsername(Person person){
+        return peopleRepository.findByUsername(person.getUsername());
     }
 }
