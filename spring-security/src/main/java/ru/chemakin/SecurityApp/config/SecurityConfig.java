@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import ru.chemakin.SecurityApp.services.PersonDetailsService;
 
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -54,8 +55,9 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/admin").hasRole("ADMIN")
                         .requestMatchers("/auth/login", "/auth/registration", "/error").permitAll()
-                        .anyRequest().authenticated())
+                        .anyRequest().hasAnyRole("USER", "ADMIN"))
                 .formLogin(form -> form.loginPage("/auth/login")
                 .loginProcessingUrl("/process_login") // адресс на который мы передаем данные с формы
                 .defaultSuccessUrl("/hello", true)
