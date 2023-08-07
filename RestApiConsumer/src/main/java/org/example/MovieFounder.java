@@ -1,10 +1,11 @@
 package org.example;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
-public class Translator {
-    public static void main(String[] args) {
+public class MovieFounder {
+    public static void main(String[] args) throws JsonProcessingException {
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -16,9 +17,13 @@ public class Translator {
 
         HttpEntity<?> requestEntity = new HttpEntity<>(httpHeaders);
 
-        ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class);
-        String response = responseEntity.toString();
+        ResponseEntity<KinopoiskResponse> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, KinopoiskResponse.class);
+        KinopoiskResponse response = responseEntity.getBody();
 
-        System.out.println(response);
+        for(Movie movie: response.getDocs()){
+            System.out.println(movie.getName() + " - " + movie.getYear() + " - " + movie.getType());
+        }
+
+
     }
 }
