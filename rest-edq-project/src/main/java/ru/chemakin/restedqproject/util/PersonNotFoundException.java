@@ -1,4 +1,5 @@
 package ru.chemakin.restedqproject.util;
 
-public class PersonNotFoundException {
+public class PersonNotFoundException extends RuntimeException{
+
 }
