@@ -7,6 +7,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "person")
 @Data
@@ -22,23 +24,18 @@ public class Person {
     @Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters.")
     private String username;
 
-    @Column(name = "year_of_birth")
-    @Min(value = 1000, message = "Year of birth should be grater then 1000.")
-    private int yearOfBirth;
+    @Column(name = "age")
+    @Min(value = 1000, message = "age should be grater then 0.")
+    private int age;
 
-    @Column(name = "password")
-    private String password;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
-    @Column(name = "role")
-    private String role;
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
-    @Override
-    public String toString() {
-        return "Person{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", yearOfBirth=" + yearOfBirth +
-                ", password='" + password + '\'' +
-                '}';
-    }
+    @Column(name = "created_who")
+    @NotEmpty
+    private String createdWho;
+
 }
