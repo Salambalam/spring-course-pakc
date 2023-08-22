@@ -5,14 +5,12 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "person")
 @Data
-@NoArgsConstructor
 public class Person {
     @Id
     @Column(name = "id")
@@ -25,7 +23,7 @@ public class Person {
     private String username;
 
     @Column(name = "age")
-    @Min(value = 1000, message = "age should be grater then 0.")
+    @Min(value = 0, message = "age should be grater then 0.")
     private int age;
 
     @Column(name = "created_at")
