@@ -3,7 +3,6 @@ package ru.chemakin.restedqproject.controllers;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -27,24 +26,24 @@ public class PersonController {
     private final ModelMapper mapper;
 
     @GetMapping()
-    public List<PersonDTO> getPersons(){ // Jackson автоматически конвертирует в JSON
+    public List<PersonDTO> getPersons() { // Jackson автоматически конвертирует в JSON
         return personService.findAll().stream()
                 .map(this::convertToPersonDTO)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public PersonDTO getPerson(@PathVariable("id") int id){
+    public PersonDTO getPerson(@PathVariable("id") int id) {
         return convertToPersonDTO(personService.findOne(id)); // Jackson автоматически конвертирует в JSON
     }
 
     @PostMapping()
     public ResponseEntity<HttpStatus> create(@RequestBody @Valid PersonDTO personDTO,
-                                             BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
+                                             BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             StringBuilder errorMessage = new StringBuilder();
             List<FieldError> errors = bindingResult.getFieldErrors();
-            for(FieldError error: errors){
+            for (FieldError error : errors) {
                 errorMessage.append(error.getField())
                         .append(" - ")
                         .append(error.getDefaultMessage())
@@ -58,7 +57,7 @@ public class PersonController {
     }
 
     @ExceptionHandler
-    private ResponseEntity<PersonErrorResponse> handleException(PersonNotFoundException exception){
+    private ResponseEntity<PersonErrorResponse> handleException(PersonNotFoundException exception) {
         PersonErrorResponse response = new PersonErrorResponse(
                 "Person with this id not found",
                 System.currentTimeMillis()
@@ -68,7 +67,7 @@ public class PersonController {
     }
 
     @ExceptionHandler
-    private ResponseEntity<PersonErrorResponse> handleException(PersonNotCreatedException exception){
+    private ResponseEntity<PersonErrorResponse> handleException(PersonNotCreatedException exception) {
         PersonErrorResponse response = new PersonErrorResponse(
                 exception.getMessage(),
                 System.currentTimeMillis()
@@ -81,11 +80,9 @@ public class PersonController {
         return mapper.map(personDTO, Person.class);
     }
 
-    private PersonDTO convertToPersonDTO(Person person){
+    private PersonDTO convertToPersonDTO(Person person) {
         return mapper.map(person, PersonDTO.class);
     }
-
-
 
 
 }
